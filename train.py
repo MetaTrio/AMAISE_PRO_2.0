@@ -110,6 +110,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
 
     i = 0
     for row in train_data_arr:
+        # Reshapes the array row into a 2D array (a column vector) 
         X.append(np.reshape(row.astype(np.float32), (-1, 1)))
         label = encodeLabel(train_df["y_true"][i])
         y.append(label)
@@ -132,8 +133,10 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE)
 
     logger.info("initializing the TCN model...")
+    #moves the model to the specified device, which is typically either a CPU or GPU snd parallelize
     model = nn.DataParallel(TCN()).to(device)
 
+  # Weight decay ---> L2 regularization
     opt = Adam(model.parameters(), lr=INIT_LR, weight_decay=1e-5)
     lossFn = nn.CrossEntropyLoss()
 

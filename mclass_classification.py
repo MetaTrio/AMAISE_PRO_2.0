@@ -116,26 +116,55 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     dataLoader = DataLoader(input_data, shuffle=False, batch_size=2048)
     # input_data = input_data.to(device)
     predicted = []
+    probabilities = []
+
     with torch.no_grad():
         for step, test_x in enumerate(dataLoader):
             test_x = test_x.to(device)
+            # Get model predictions and apply softmax
             pred = torch.nn.functional.softmax(model(test_x), dim=1)
+            # Extract class labels with the highest probabilities as the predicted labels.
             _, predicted_labels = torch.max(pred, 1)
             predicted.extend(predicted_labels.cpu().numpy())
+            probabilities.extend(pred.cpu().numpy())
 
     endTime = time.time()
     predicting_time_diff = (endTime - startTime_) / 60
     logger.info(f"Time taken to predict the results: {predicting_time_diff} min")
+    
+    #venu
+      # Debugging: Print lengths of arrays
+    print(f"Length of accession_numbers: {len(accession_numbers)}")
+    print(f"Length of predicted: {len(predicted)}")
+    print(f"Length of probabilities: {len(probabilities)}")
+    
+    # Check if lengths match
+    if len(accession_numbers) != len(predicted):
+        raise ValueError("The lengths of accession_numbers and predicted arrays do not match.")
+    #venu
+
+    class_names = ["host", "bacteria", "virus", "fungi", "archaea", "protozoa"]
 
     pred_df = pd.DataFrame({"id": accession_numbers, "pred_label": predicted})
     pred_df.to_csv(f"{resultPath}predictions.csv", index=False)
+
+    # Create a DataFrame with probabilities for each class
+    probability_columns = [f"prob_{class_name}" for class_name in class_names]
+    pred_df = pd.DataFrame(probabilities, columns=probability_columns)
+    pred_df["id"] = accession_numbers
+    pred_df["pred_label"] = predicted
+
+    # Reorder columns to have 'id' and 'pred_label' as the first two columns
+    pred_df = pred_df[["id", "pred_label"] + probability_columns]
+
+    # Save DataFrame to CSV
+    pred_df.to_csv(f"{resultPath}predicted_probabilities.csv", index=False)
 
     id_label_dict = dict(zip(pred_df["id"], pred_df["pred_label"]))
     class_seqs = [[], [], [], [], [], []]
     for seq in SeqIO.parse(inputset, type_):
         class_seqs[id_label_dict[seq.id]].append(seq)
 
-    class_names = ["host", "bacteria", "virus", "fungi", "archaea", "protozoa"]
     for i in range(1, 6):
         with open(f"{resultPath}{class_names[i]}.{type_}", "w") as file:
             SeqIO.write(class_seqs[i], file, type_)
