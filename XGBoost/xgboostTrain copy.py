@@ -112,7 +112,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     logger.info(f"Total time taken to parse data: {encoding_time_diff:.2f} min")
 
     # Split the data
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y,random_state=42)
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y,random_state=0)
 
     logger.info("Initializing the XGBoost model...")
 

@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from collections import Counter
 import numpy as np
 import psutil
+import torch
 
 @click.command()
 @click.option(
@@ -86,36 +87,65 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     logger.info(f"Labels path: {labelset}")
     logger.info(f"Results path: {resultPath}")
 
-    # logger.info(f"Learning rate: {learningRate}")
-    # logger.info(f"Batch size: {batchSize}")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    logger.info(f"Device: {device}")
 
     # Load data
+    logger.info("Loading label data...")
     train_df = pd.read_csv(labelset)
+    
+    logger.info("Loading input data...")
     train_data_arr = pd.read_csv(inputset, header=None).to_numpy()
-
-    X, y = [], []
 
     logger.info("Parsing data...")
 
     startTime = time.time()
+    
+    # X, y = [], []
 
-    i = 0
-    for row in train_data_arr:
-        X.append(row.astype(np.float32))  # Convert to float32
-        label = train_df["y_true"][i]  # Assume the label column is 'y_true'
-        y.append(label)
-        i += 1
+    # i = 0
+    # for row in train_data_arr:
+    #     X.append(row.astype(np.float32))  # Convert to float32
+    #     label = train_df["y_true"][i]  # Assume the label column is 'y_true'
+    #     y.append(label)
+    #     i += 1
+
+    # Preallocate arrays based on the shape of the data
+    num_samples = train_data_arr.shape[0]
+    num_features = train_data_arr.shape[1]
+    X = np.zeros((num_samples, num_features), dtype=np.float32)   # Preallocate X
+    y = np.zeros(num_samples, dtype=train_df["y_true"].dtype)     # Preallocate y
+
+    # Populate X and y without an explicit loop
+    X = train_data_arr.astype(np.float32)  # Directly assign the entire array
+    y = train_df["y_true"].to_numpy()       # Convert y_true to a NumPy array
+
+    # for i in range(num_samples):
+    #     X[i] = train_data_arr[i].astype(np.float32)  # Directly assign to preallocated array
+    #     y[i] = train_df["y_true"][i]  # Directly assign to preallocated array
+
+    # Parse data and move it to the chosen device
+    # i = 0
+    # for row in train_data_arr:
+    #     # Convert row to a torch tensor and move it to the device
+    #     X_tensor = torch.tensor(row.astype(np.float32)).to(device)
+    #     X.append(X_tensor)
+    #     print("here")
+    #     label = train_df["y_true"][i]
+    #     y_tensor = torch.tensor(label).to(device)  # Move label to device
+    #     y.append(y_tensor)
+    #     i+=0
 
     endTime = time.time()
     encoding_time_diff = (endTime - startTime) / 60
     logger.info(f"Total time taken to parse data: {encoding_time_diff:.2f} min")
 
     # Split the data
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=0)
 
     logger.info("Initializing the XGBoost classifier...")
-    startTime = time.time()
-
+    
     # Set XGBoost parameters
     params = {
         "eta": learningRate,  # Learning rate
@@ -123,24 +153,25 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
         "num_class": len(set(y)),  # Number of classes
         "max_depth": 16, 
         "eval_metric": ["merror"],  # Logarithmic loss and error rate
+        # "tree_method" :"gpu_hist"
     }
 
     # Initialize the XGBClassifier with the defined parameters
     xgb_model = xgb.XGBClassifier(
-        objective=params["objective"],              # Learning objective (e.g., multi:softmax)
-        num_class=params["num_class"],              # Number of classes (for multi-class tasks, ensure it’s needed)
+        objective=params["objective"],              # Learning objective 
+        num_class=params["num_class"],              # Number of classes 
         eval_metric=params["eval_metric"],          # Evaluation metric (e.g., merror, mlogloss)
         use_label_encoder=False,                    # Avoid label encoder warnings
         #  Hyper parameters
         n_estimators= 200,                            # Number of boosting rounds
         min_child_weight= 1,                          # Minimum sum of instance weight (hessian) needed in a child
         subsample = 1,                                # Subsample ratio of training instances
-        max_depth = 10,                               # Depth of the trees (can be tuned)
-        learning_rate = 0.1,                          # Learning rate (ensure this is set appropriately)
+        max_depth = 10,                               # Depth of the trees 
+        learning_rate = 0.1,                          # Learning rate 
         gamma = 0,                                    # Minimum loss reduction to partition
         reg_lambda = 1,                               # L2 regularization term on weights
-        reg_alpha = 0.5,                                # L1 regularization term on weights
-    
+        reg_alpha = 1,                                # L1 regularization term on weights
+        # tree_method="gpu_hist"
     )  
 
     # Log hyperparameter values
