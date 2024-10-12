@@ -21,19 +21,34 @@ from sklearn.metrics import classification_report, confusion_matrix
     type=click.Path(exists=True),
     required=True,
 )
+@click.option(
+    "--logfile",
+    "-lf",
+    help="Path to log output file (optional)",
+    type=click.Path(),
+    required=False,
+)
 @click.help_option("--help", "-h", help="Show this message and exit")
 #def main(predfile, truefile):
-def main(pred, true):
+def main(pred, true, logfile):
 
     logger = logging.getLogger(f"amaisepro")
     logger.setLevel(logging.DEBUG)
     logging.captureWarnings(True)
+
     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+    
     consoleHeader = logging.StreamHandler()
     consoleHeader.setFormatter(formatter)
     consoleHeader.setLevel(logging.INFO)
     logger.addHandler(consoleHeader)
 
+    # File handler (for logging to a file, if the logfile option is provided)
+    if logfile:
+        file_handler = logging.FileHandler(logfile)
+        file_handler.setFormatter(formatter)
+        file_handler.setLevel(logging.DEBUG)
+        logger.addHandler(file_handler)
     pred_df = pd.read_csv(pred)
     # # Read the true labels file into a DataFrame, using the first two columns and naming them "id" and "label"
     # true_df = pd.read_csv(true, usecols=[0, 1], names=["id", "label"], header=None)
