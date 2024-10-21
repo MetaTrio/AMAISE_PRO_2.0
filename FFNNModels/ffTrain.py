@@ -68,7 +68,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     epoches = epoches
     learningRate = learning_rate
 
-    logger = logging.getLogger(f"amaisepro")
+    logger = logging.getLogger(f"FFNN")
     logger.setLevel(logging.DEBUG)
     logging.captureWarnings(True)
     formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
@@ -99,36 +99,52 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
 
     logger.info(f"Device: {device}")
 
+    # Load data
+    logger.info("Loading label data...")
     train_df = pd.read_csv(labelset)
+    logger.info("Loading input data...")
     train_data_arr = pd.read_csv(inputset, header=None).to_numpy()
 
-    X, y = [], []
-
     logger.info("parsing data...")
-
     startTime = time.time()
 
-    i = 0
-    for row in train_data_arr:
-        # Assuming each row is a 32-element vector
-        X.append(row.astype(np.float32)) 
-        # label = encodeLabel(train_df["y_true"][i])
-        label = train_df["y_true"][i]
-        y.append(label)
-        i = i + 1
+    # X, y = [], []        
+
+    # i = 0
+    # for row in train_data_arr:
+    #     # Assuming each row is a 32-element vector
+    #     X.append(row.astype(np.float32)) 
+    #     # label = encodeLabel(train_df["y_true"][i])
+    #     label = train_df["y_true"][i]
+    #     y.append(label)
+    #     i = i + 1
+
+    # Preallocate arrays based on the shape of the data
+    num_samples = train_data_arr.shape[0]
+    num_features = train_data_arr.shape[1]
+    X = np.zeros((num_samples, num_features), dtype=np.float32)   # Preallocate X
+    y = np.zeros(num_samples, dtype=train_df["y_true"].dtype)     # Preallocate y
+
+    # Populate X and y without an explicit loop
+    X = train_data_arr.astype(np.float32)  # Directly assign the entire array
+    y = train_df["y_true"].to_numpy()       # Convert y_true to a NumPy array   
 
     endTime = time.time()
     encoding_time_diff = (endTime - startTime) / 60
     logger.info(f"Total time taken to parse data: {encoding_time_diff} min")
 
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y)
+    # split the data
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=0)
 
-    train_data = []
-    for i in range(len(X_train)):
-        train_data.append((X_train[i], y_train[i]))
-    val_data = []
-    for i in range(len(X_val)):
-        val_data.append((X_val[i], y_val[i]))
+    # train_data = []
+    # for i in range(len(X_train)):
+    #     train_data.append((X_train[i], y_train[i]))
+    # val_data = []
+    # for i in range(len(X_val)):
+    #     val_data.append((X_val[i], y_val[i]))
+
+    train_data = list(zip(X_train, y_train))
+    val_data = list(zip(X_val, y_val))
 
     trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE)
     valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE)
@@ -136,7 +152,6 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     # logger.info("initializing the TCN model...")
     logger.info("initializing the FFNN model...")
     #moves the model to the specified device, which is typically either a CPU or GPU snd parallelize
-    # model = nn.DataParallel(TCN()).to(device)
     model = nn.DataParallel(FeedForwardNN()).to(device)
 
 
