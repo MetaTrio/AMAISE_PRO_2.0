@@ -114,8 +114,18 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     end_time = time.time()
     memory = psutil.Process().memory_info()
 
-    logger.info("Total time taken: {:.2f} min".format((end_time - start_time) / 60))
-    logger.info(f"Memory usage: {memory}")
+    logger.info("Total time: {:.2f} min".format((end_time - start_time) / 60))
+
+    # Convert memory values from bytes to GB
+    rss_gb = memory.rss / (1024 ** 3)
+    vms_gb = memory.vms / (1024 ** 3)
+    shared_gb = memory.shared / (1024 ** 3)
+    text_gb = memory.text / (1024 ** 3)
+    data_gb = memory.data / (1024 ** 3)
+
+    # Log the values in GB
+    logger.info(f"Memory usage: rss={rss_gb:.2f} GB, vms={vms_gb:.2f} GB, shared={shared_gb:.2f} GB, text={text_gb:.2f} GB, data={data_gb:.2f} GB")
+
 
 if __name__ == "__main__":
     main()
