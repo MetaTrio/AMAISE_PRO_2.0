@@ -89,7 +89,11 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     i = 0
     for row in k_mer_arr:
         # FFNN expects a flat 1D vector of 32 elements as input, so ensure reshaping is done accordingly
-        input_data.append(np.reshape(row.astype(np.float32), (32,)))  # 32 features
+        # input_data.append(np.reshape(row.astype(np.float32), (32,)))  # 32 features
+        # input_data.append(np.reshape(row.astype(np.float32), (2080,)))  # 6mer
+        input_data.append(np.reshape(row.astype(np.float32), (512,)))  # 5mer
+        # input_data.append(np.reshape(row.astype(np.float32), (136,)))  # 4mer
+        #input_data.append(np.reshape(row.astype(np.float32), (680,)))  # 3,4,5mer
         i = i + 1
 
     accession_numbers = []
@@ -144,31 +148,40 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     pred_df.to_csv(f"{resultPath}predictions.csv", index=False)
 
     # Create a DataFrame with probabilities for each class
-    probability_columns = [f"prob_{class_name}" for class_name in class_names]
-    pred_df = pd.DataFrame(probabilities, columns=probability_columns)
-    pred_df["id"] = accession_numbers
-    pred_df["pred_label"] = predicted
+    # probability_columns = [f"prob_{class_name}" for class_name in class_names]
+    # pred_df = pd.DataFrame(probabilities, columns=probability_columns)
+    # pred_df["id"] = accession_numbers
+    # pred_df["pred_label"] = predicted
 
-    # Reorder columns to have 'id' and 'pred_label' as the first two columns
-    pred_df = pred_df[["id", "pred_label"] + probability_columns]
+    # # Reorder columns to have 'id' and 'pred_label' as the first two columns
+    # pred_df = pred_df[["id", "pred_label"] + probability_columns]
 
-    # Save DataFrame to CSV
-    pred_df.to_csv(f"{resultPath}predicted_probabilities.csv", index=False)
+    # # Save DataFrame to CSV
+    # pred_df.to_csv(f"{resultPath}predicted_probabilities.csv", index=False)
 
-    id_label_dict = dict(zip(pred_df["id"], pred_df["pred_label"]))
-    class_seqs = [[], [], [], [], [], []]
-    for seq in SeqIO.parse(inputset, type_):
-        class_seqs[id_label_dict[seq.id]].append(seq)
+    # id_label_dict = dict(zip(pred_df["id"], pred_df["pred_label"]))
+    # class_seqs = [[], [], [], [], [], []]
+    # for seq in SeqIO.parse(inputset, type_):
+    #     class_seqs[id_label_dict[seq.id]].append(seq)
 
-    for i in range(1, 6):
-        with open(f"{resultPath}{class_names[i]}.{type_}", "w") as file:
-            SeqIO.write(class_seqs[i], file, type_)
+    # for i in range(1, 6):
+    #     with open(f"{resultPath}{class_names[i]}.{type_}", "w") as file:
+    #         SeqIO.write(class_seqs[i], file, type_)
 
     endTime = time.time()
     memory = psutil.Process().memory_info()
 
     logger.info("Total time: {:.2f} min".format((endTime - startTime) / 60))
-    logger.info(f"Memory usage: {memory}")
+
+    # Convert memory values from bytes to GB
+    rss_gb = memory.rss / (1024 ** 3)
+    vms_gb = memory.vms / (1024 ** 3)
+    shared_gb = memory.shared / (1024 ** 3)
+    text_gb = memory.text / (1024 ** 3)
+    data_gb = memory.data / (1024 ** 3)
+
+    # Log the values in GB
+    logger.info(f"Memory usage: rss={rss_gb:.2f} GB, vms={vms_gb:.2f} GB, shared={shared_gb:.2f} GB, text={text_gb:.2f} GB, data={data_gb:.2f} GB")
 
 
 if __name__ == "__main__":
