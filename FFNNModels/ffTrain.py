@@ -242,7 +242,17 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
             (endTime - startTime) / 60
         )
     )
-    logger.info(f"Memory usage: {memory}")
+
+    # Convert memory values from bytes to GB
+    rss_gb = memory.rss / (1024 ** 3)
+    vms_gb = memory.vms / (1024 ** 3)
+    shared_gb = memory.shared / (1024 ** 3)
+    text_gb = memory.text / (1024 ** 3)
+    data_gb = memory.data / (1024 ** 3)
+
+    # Log the values in GB
+    logger.info(f"Memory usage: rss={rss_gb:.2f} GB, vms={vms_gb:.2f} GB, shared={shared_gb:.2f} GB, text={text_gb:.2f} GB, data={data_gb:.2f} GB")
+
 
     # Plot training validation losses vs. epoches
 
