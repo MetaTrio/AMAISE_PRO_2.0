@@ -6,7 +6,7 @@ class FeedForwardNN(nn.Module):
         super(FeedForwardNN, self).__init__()
         
         # Define the layers
-        self.fc1 = nn.Linear(32, 1024)   # Input layer with 512 features -- 3mer
+        self.fc1 = nn.Linear(32, 1024)   # Input layer with 32 features -- 3mer
         self.fc2 = nn.Linear(1024, 256)  # Hidden layer with 256 neurons
         self.fc3 = nn.Linear(256, 128)   # Hidden layer with 128 neurons
         self.fc4 = nn.Linear(128, 1)     # Output layer with 1 neuron for binary classification

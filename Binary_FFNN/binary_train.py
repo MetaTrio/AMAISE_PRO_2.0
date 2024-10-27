@@ -1,4 +1,4 @@
-from FFNN_binary import *
+from binary_ffnn import *
 import argparse
 import pandas as pd
 from torch.utils.data import DataLoader
