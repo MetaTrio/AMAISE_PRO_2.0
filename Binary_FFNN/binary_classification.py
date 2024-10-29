@@ -80,8 +80,9 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
 
     # Load and prepare input data
     k_mer_arr = pd.read_csv(k_mers, header=None).to_numpy()
-    print(k_mer_arr[0].shape)
-    input_data = [np.reshape(row.astype(np.float32), (32,)) for row in k_mer_arr]  # Reshape for binary classifier
+    # input_data = [np.reshape(row.astype(np.float32), (32,)) for row in k_mer_arr]  # 3mer
+    # input_data = [np.reshape(row.astype(np.float32), (136,)) for row in k_mer_arr]  # 4mer
+    input_data = [np.reshape(row.astype(np.float32), (40,)) for row in k_mer_arr]  # 2mer, 3mer
     
     accession_numbers = [seq.id for seq in SeqIO.parse(inputset, type_)]
     
@@ -116,14 +117,11 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
             pred = model(test_x)
             predictions.extend(pred.cpu().numpy())
 
-    print(predictions)
 
-    logger.info(f"predictions{predictions}")
     # Threshold for binary output
     predicted_labels = [1 if p > 0.5 else 0 for p in predictions]
     elapsed_time = time.time() - start_time
     memory_after = psutil.Process().memory_info()
-    logger.info(f"predicted_labels{predicted_labels}")
     
     # Log time and memory
     logger.info(f"Total time for predictions: {elapsed_time / 60:.2f} minutes")
@@ -131,7 +129,7 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     logger.info(f"Memory usage after predictions: {memory_after.rss / (1024 * 1024):.2f} MB")
     
     # Output predictions to file
-    prediction_data = pd.DataFrame({"Accession": accession_numbers, "Prediction": predicted_labels})
+    prediction_data = pd.DataFrame({"id": accession_numbers, "pred_label": predicted_labels})
     prediction_data.to_csv(f"{resultPath}predictions.csv", index=False)
     logger.info("Predictions saved successfully.")
 
