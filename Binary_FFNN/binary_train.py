@@ -16,6 +16,7 @@ import torch.nn as nn
 
 
 @click.command()
+@click.option("--unbalanced", is_flag=True, help="Specify if the dataset is unbalanced.")
 @click.option(
     "--input",
     "-i",
@@ -130,8 +131,8 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     train_data = list(zip(X_train, y_train))
     val_data = list(zip(X_val, y_val))
 
-    trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE)
-    valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE)
+    trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE, num_workers=10)
+    valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE, num_workers=10)
 
     logger.info("initializing the FFNN model...")
     model = nn.DataParallel(FeedForwardNN()).to(device)
@@ -146,7 +147,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     startTime = time.time()
     max_val_acc = 0
     train_losses, train_accuracies = [], []
-    validation_losses, validation_accuracies = []
+    validation_losses, validation_accuracies = [], []
     epoch_list = [e + 1 for e in range(0, EPOCHES)]
 
     for e in range(0, EPOCHES):
@@ -209,7 +210,9 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
         if max_val_acc < val_accuracy:
             max_val_acc = val_accuracy
             train_acc_at_max_val_acc = train_accuracy
+            epoch_of_max_val_acc = e
             torch.save(model.state_dict(), newModelPath)
+
 
     endTime = time.time()
     memory = psutil.Process().memory_info()
@@ -222,6 +225,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     logger.info(f"Memory usage: {memory}")
     logger.info(f"Maximum training accuracy = {train_acc_at_max_val_acc:.7f}")
     logger.info(f"Maximum validation accuracy = {max_val_acc:.7f}")
+    logger.info(f"Epoch of maximum validation accuracy = {epoch_of_max_val_acc}")
 
     # Plot training/validation losses vs. epochs
     plt.plot(epoch_list, train_losses, label="Training loss")
