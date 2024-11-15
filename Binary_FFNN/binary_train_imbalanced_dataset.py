@@ -13,10 +13,10 @@ import numpy as np
 import psutil
 import torch
 import torch.nn as nn
+from sklearn.utils.class_weight import compute_class_weight
 
 
 @click.command()
-@click.option("--unbalanced", is_flag=True, help="Specify if the dataset is unbalanced.")
 @click.option(
     "--input",
     "-i",
@@ -126,21 +126,47 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     logger.info(f"Total time taken to parse data: {encoding_time_diff} min")
 
     # split the data
+    # X_train, X_val - kmer frequency vectors of reads
+    # y_train, y_val - true labels 
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=0)
 
     train_data = list(zip(X_train, y_train))
     val_data = list(zip(X_val, y_val))
 
-    trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE, num_workers=10)
-    valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE, num_workers=10)
+    trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE)
+    valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE)
 
+    # Count the occurrences of each class in the training and validation sets
+    train_class_counts = Counter(y_train)
+    val_class_counts = Counter(y_val)
+
+    # Print the class distribution (ratios) in both sets
+    print("Class distribution in training set:")
+    for class_label, count in train_class_counts.items():
+        print(f"Class {class_label}: {count} samples")
+
+    print("\nClass distribution in validation set:")
+    for class_label, count in val_class_counts.items():
+        print(f"Class {class_label}: {count} samples")
+
+    class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(y_train), y=y_train)
+    # weight_class_i = total_samples / (number_of_classes * number_of_samples_class_i)
+    class_weights_tensor = torch.tensor(class_weights, dtype=torch.float32).to(device)
+    print("Class weights for training ", class_weights_tensor)
+   
+    # model setup
     logger.info("initializing the FFNN model...")
     model = nn.DataParallel(FeedForwardNN()).to(device)
 
-    # Use BCELoss for binary classification
-    opt = Adam(model.parameters(), lr=INIT_LR, weight_decay=1e-5)
+    
+    # opt = Adam(model.parameters(), lr=INIT_LR, weight_decay=1e-5)
+    opt = Adam(model.parameters(), lr=INIT_LR)
     # binary cross entropy loss function
-    lossFn = nn.BCELoss()
+    lossFn = nn.BCELoss(weight=class_weights_tensor)
+
+    # Use BCEWithLogitsLoss for binary classification
+    # lossFn = nn.BCEWithLogitsLoss(weight=class_weights_tensor)
+
 
     logger.info("training the network...")
 
@@ -159,8 +185,12 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
         for step, (x, y) in enumerate(trainDataLoader):
             (x, y) = (x.to(device), y.to(device))
 
+            print(f"Initial label shape: {y.shape}")
+
             # Reshape labels for BCELoss to [batch_size, 1]
             y = y.view(-1, 1).float()
+            print(x.shape, y.shape)
+    
 
             pred = model(x)
             loss = lossFn(pred, y)
@@ -172,6 +202,8 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
             opt.step()
 
             # Calculate correct predictions
+            # output of BCEWithLogitsLoss is not passed through a sigmoid, apply a sigmoid
+            # pred = torch.sigmoid(pred)  # Apply sigmoid for predictions
             predicted_labels = (pred > 0.5).float()
             correct_train_predictions += (predicted_labels == y).sum().item()
 
@@ -190,6 +222,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
                 val_loss = lossFn(val_pred, val_y)
                 total_val_loss += val_loss.item()
 
+                val_pred = torch.sigmoid(val_pred)  # Apply sigmoid for validation predictions
                 predicted_val_labels = (val_pred > 0.5).float()
                 correct_val_predictions += (predicted_val_labels == val_y).sum().item()
 
@@ -213,6 +246,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
             epoch_of_max_val_acc = e
             torch.save(model.state_dict(), newModelPath)
 
+    
 
     endTime = time.time()
     memory = psutil.Process().memory_info()

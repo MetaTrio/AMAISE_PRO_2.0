@@ -90,8 +90,8 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     for row in k_mer_arr:
         # FFNN expects a flat 1D vector of 32 elements as input, so ensure reshaping is done accordingly
         # input_data.append(np.reshape(row.astype(np.float32), (32,)))  # 32 features
-        # input_data.append(np.reshape(row.astype(np.float32), (2080,)))  # 6mer
-        input_data.append(np.reshape(row.astype(np.float32), (512,)))  # 5mer
+        input_data.append(np.reshape(row.astype(np.float32), (42,)))   #2mer, 3mer
+        # input_data.append(np.reshape(row.astype(np.float32), (512,)))  # 5mer
         # input_data.append(np.reshape(row.astype(np.float32), (136,)))  # 4mer
         #input_data.append(np.reshape(row.astype(np.float32), (680,)))  # 3,4,5mer
         i = i + 1
@@ -127,7 +127,8 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
             # Extract class labels with the highest probabilities as the predicted labels
             _, predicted_labels = torch.max(pred, 1)
             predicted.extend(predicted_labels.cpu().numpy())
-            probabilities.extend(pred.cpu().numpy())
+            # probabilities.extend(pred.cpu().numpy())
+            probabilities.extend(pred.cpu().numpy().tolist())  # Convert to standard Python floats
 
     endTime = time.time()
     predicting_time_diff = (endTime - startTime_) / 60
@@ -144,10 +145,10 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
 
     class_names = ["host", "bacteria", "virus", "fungi", "archaea", "protozoa"]
 
-    pred_df = pd.DataFrame({"id": accession_numbers, "pred_label": predicted})
-    pred_df.to_csv(f"{resultPath}predictions.csv", index=False)
+    # pred_df = pd.DataFrame({"id": accession_numbers, "pred_label": predicted})
+    # pred_df.to_csv(f"{resultPath}predictions.csv", index=False)
 
-    # Create a DataFrame with probabilities for each class
+    # # Create a DataFrame with probabilities for each class
     # probability_columns = [f"prob_{class_name}" for class_name in class_names]
     # pred_df = pd.DataFrame(probabilities, columns=probability_columns)
     # pred_df["id"] = accession_numbers
@@ -158,6 +159,15 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
 
     # # Save DataFrame to CSV
     # pred_df.to_csv(f"{resultPath}predicted_probabilities.csv", index=False)
+
+    # Create a DataFrame with 'id', 'pred_label', and 'probabilities' (vector for each class)
+    pred_prob_df = pd.DataFrame({
+        "id": accession_numbers,
+        "pred_label": predicted,
+        "probabilities": [list(prob) for prob in probabilities]  # store as a list for each row
+    })
+
+    pred_prob_df.to_csv(f"{resultPath}predictions.csv", index=False)
 
     # id_label_dict = dict(zip(pred_df["id"], pred_df["pred_label"]))
     # class_seqs = [[], [], [], [], [], []]
