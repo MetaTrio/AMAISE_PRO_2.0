@@ -1,0 +1,197 @@
+2024-11-10 18:25:36,172 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-10 18:25:36,172 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-10 18:25:36,172 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-10 18:25:36,172 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-10 18:25:36,172 - INFO - Learning rate: 0.001
+2024-11-10 18:25:36,172 - INFO - Batch size: 1024
+2024-11-10 18:25:36,172 - INFO - # Epoches: 50
+2024-11-10 18:25:36,241 - INFO - Device: cuda
+2024-11-10 18:25:36,242 - INFO - Loading label data...
+2024-11-10 18:25:47,808 - INFO - Loading input data...
+2024-11-10 18:27:35,654 - INFO - parsing data...
+2024-11-10 18:27:39,821 - INFO - Total time taken to parse data: 0.06944704453150431 min
+2024-11-10 18:28:01,769 - INFO - initializing the FFNN model...
+2024-11-10 18:28:03,217 - INFO - training the network...
+
+Traceback (most recent call last):
+  File "/home/chadmi.20/AMAISE_PRO_2.0/Binary_FFNN/binary_train_imbalanced_dataset.py", line 278, in <module>
+    main()
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/AMAISE_PRO_2.0/Binary_FFNN/binary_train_imbalanced_dataset.py", line 191, in main
+    loss = lossFn(pred, y)
+           ^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/torch/nn/modules/loss.py", line 734, in forward
+    return F.binary_cross_entropy_with_logits(input, target,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/chadmi.20/miniconda3/lib/python3.12/site-packages/torch/nn/functional.py", line 3242, in binary_cross_entropy_with_logits
+    raise ValueError(f"Target size ({target.size()}) must be the same as input size ({input.size()})")
+ValueError: Target size (torch.Size([1024, 1])) must be the same as input size (torch.Size([1024, 2]))2024-11-11 13:42:22,669 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 13:42:22,669 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 13:42:22,669 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 13:42:22,669 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 13:42:22,670 - INFO - Learning rate: 0.001
+2024-11-11 13:42:22,670 - INFO - Batch size: 1024
+2024-11-11 13:42:22,670 - INFO - # Epoches: 50
+2024-11-11 13:42:23,201 - INFO - Device: cuda
+2024-11-11 13:42:23,201 - INFO - Loading label data...
+2024-11-11 13:42:35,598 - INFO - Loading input data...
+2024-11-11 13:44:08,328 - INFO - parsing data...
+2024-11-11 13:44:10,634 - INFO - Total time taken to parse data: 0.03842583497365316 min
+2024-11-11 13:44:33,867 - INFO - initializing the FFNN model...
+2024-11-11 13:44:36,000 - INFO - training the network...
+2024-11-11 13:50:49,611 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 13:50:49,611 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 13:50:49,612 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 13:50:49,612 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 13:50:49,612 - INFO - Learning rate: 0.001
+2024-11-11 13:50:49,612 - INFO - Batch size: 1024
+2024-11-11 13:50:49,612 - INFO - # Epoches: 50
+2024-11-11 13:50:50,179 - INFO - Device: cuda
+2024-11-11 13:50:50,180 - INFO - Loading label data...
+2024-11-11 13:51:00,063 - INFO - Loading input data...
+2024-11-11 13:51:59,544 - INFO - parsing data...
+2024-11-11 13:52:00,525 - INFO - Total time taken to parse data: 0.016352033615112303 min
+2024-11-11 13:52:21,315 - INFO - initializing the FFNN model...
+2024-11-11 13:52:22,677 - INFO - training the network...
+2024-11-11 14:07:33,489 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 14:07:33,489 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 14:07:33,489 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 14:07:33,489 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 14:07:33,489 - INFO - Learning rate: 0.001
+2024-11-11 14:07:33,489 - INFO - Batch size: 1024
+2024-11-11 14:07:33,489 - INFO - # Epoches: 50
+2024-11-11 14:07:34,056 - INFO - Device: cuda
+2024-11-11 14:07:34,056 - INFO - Loading label data...
+2024-11-11 14:07:43,986 - INFO - Loading input data...
+2024-11-11 14:08:39,718 - INFO - parsing data...
+2024-11-11 14:08:40,660 - INFO - Total time taken to parse data: 0.01569311221440633 min
+2024-11-11 14:08:59,706 - INFO - initializing the FFNN model...
+2024-11-11 14:09:01,070 - INFO - training the network...
+2024-11-11 14:11:21,647 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 14:11:21,647 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 14:11:21,647 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 14:11:21,647 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 14:11:21,647 - INFO - Learning rate: 0.001
+2024-11-11 14:11:21,647 - INFO - Batch size: 1024
+2024-11-11 14:11:21,647 - INFO - # Epoches: 50
+2024-11-11 14:11:22,213 - INFO - Device: cuda
+2024-11-11 14:11:22,214 - INFO - Loading label data...
+2024-11-11 14:11:32,130 - INFO - Loading input data...
+2024-11-11 14:12:26,542 - INFO - parsing data...
+2024-11-11 14:12:27,589 - INFO - Total time taken to parse data: 0.017446855703989666 min
+2024-11-11 14:12:49,500 - INFO - initializing the FFNN model...
+2024-11-11 14:12:50,855 - INFO - training the network...
+2024-11-11 15:40:02,956 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 15:40:02,956 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 15:40:02,956 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 15:40:02,956 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 15:40:02,956 - INFO - Learning rate: 0.001
+2024-11-11 15:40:02,956 - INFO - Batch size: 1024
+2024-11-11 15:40:02,956 - INFO - # Epoches: 50
+2024-11-11 15:40:03,519 - INFO - Device: cuda
+2024-11-11 15:40:03,519 - INFO - Loading label data...
+2024-11-11 15:40:13,276 - INFO - Loading input data...
+2024-11-11 15:41:08,521 - INFO - parsing data...
+2024-11-11 15:41:09,507 - INFO - Total time taken to parse data: 0.016414483388264973 min
+2024-11-11 15:41:30,036 - INFO - initializing the FFNN model...
+2024-11-11 15:41:31,411 - INFO - training the network...
+2024-11-11 15:59:24,324 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 15:59:24,324 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 15:59:24,324 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 15:59:24,325 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 15:59:24,325 - INFO - Learning rate: 0.001
+2024-11-11 15:59:24,325 - INFO - Batch size: 1024
+2024-11-11 15:59:24,325 - INFO - # Epoches: 50
+2024-11-11 15:59:24,888 - INFO - Device: cuda
+2024-11-11 15:59:24,888 - INFO - Loading label data...
+2024-11-11 15:59:34,566 - INFO - Loading input data...
+2024-11-11 16:00:48,978 - INFO - parsing data...
+2024-11-11 16:00:49,973 - INFO - Total time taken to parse data: 0.01659026543299357 min
+2024-11-11 16:01:09,975 - INFO - initializing the FFNN model...
+2024-11-11 16:01:11,376 - INFO - training the network...
+2024-11-11 16:41:47,835 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer.pth
+2024-11-11 16:41:47,835 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-11 16:41:47,835 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-11 16:41:47,835 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_2mer_3mer
+2024-11-11 16:41:47,835 - INFO - Learning rate: 0.001
+2024-11-11 16:41:47,836 - INFO - Batch size: 1024
+2024-11-11 16:41:47,836 - INFO - # Epoches: 50
+2024-11-11 16:41:48,411 - INFO - Device: cuda
+2024-11-11 16:41:48,412 - INFO - Loading label data...
+2024-11-11 16:41:58,435 - INFO - Loading input data...
+2024-11-11 16:42:54,987 - INFO - Parsing data...
+2024-11-11 16:42:55,946 - INFO - Total time taken to parse data: 0.015974124272664387 min
+2024-11-11 16:43:13,784 - INFO - Initializing the FFNN model...
+2024-11-11 16:43:15,725 - INFO - Training the network...
+2024-11-11 16:46:00,892 - INFO - Epoch 1/50, Training Loss: 3.9840935781553745e-05, Train Accuracy: 0.9609035714285714, Validation Loss: 3.03278304119077e-05, Validation Accuracy: 0.9682210317460317
+2024-11-11 16:48:45,889 - INFO - Epoch 2/50, Training Loss: 3.0419696206116074e-05, Train Accuracy: 0.9690580357142857, Validation Loss: 2.9549173421655147e-05, Validation Accuracy: 0.9692936507936508
+2024-11-11 16:51:29,509 - INFO - Epoch 3/50, Training Loss: 2.9245984171875677e-05, Train Accuracy: 0.9700763888888889, Validation Loss: 2.8061364302855163e-05, Validation Accuracy: 0.9719690476190476
+2024-11-11 16:54:13,124 - INFO - Epoch 4/50, Training Loss: 2.8539906962338598e-05, Train Accuracy: 0.9707424603174604, Validation Loss: 2.741263189929582e-05, Validation Accuracy: 0.9723587301587302
+2024-11-11 16:56:57,781 - INFO - Epoch 5/50, Training Loss: 2.8206808254813834e-05, Train Accuracy: 0.9710294642857142, Validation Loss: 2.775205648725941e-05, Validation Accuracy: 0.9698361111111111
+2024-11-11 16:59:42,101 - INFO - Epoch 6/50, Training Loss: 2.7927300466930435e-05, Train Accuracy: 0.9712752976190476, Validation Loss: 2.722132325630694e-05, Validation Accuracy: 0.9709285714285715
+2024-11-11 17:02:27,591 - INFO - Epoch 7/50, Training Loss: 2.7706682976217023e-05, Train Accuracy: 0.9714444444444444, Validation Loss: 2.785021858437667e-05, Validation Accuracy: 0.9702583333333333
+2024-11-11 17:05:10,836 - INFO - Epoch 8/50, Training Loss: 2.753106283351025e-05, Train Accuracy: 0.9715642857142858, Validation Loss: 2.8972524193130315e-05, Validation Accuracy: 0.9702146825396826
+2024-11-11 17:07:55,512 - INFO - Epoch 9/50, Training Loss: 2.7382718091497997e-05, Train Accuracy: 0.9716833333333333, Validation Loss: 2.6321440269904478e-05, Validation Accuracy: 0.9734888888888888
+2024-11-11 17:10:40,568 - INFO - Epoch 10/50, Training Loss: 2.7249900326742568e-05, Train Accuracy: 0.9718099206349207, Validation Loss: 2.7221407411280015e-05, Validation Accuracy: 0.9723361111111111
+2024-11-11 17:13:29,302 - INFO - Epoch 11/50, Training Loss: 2.718126041249239e-05, Train Accuracy: 0.9718160714285714, Validation Loss: 2.6804539778210694e-05, Validation Accuracy: 0.9714722222222222
+2024-11-11 17:16:19,219 - INFO - Epoch 12/50, Training Loss: 2.708579598268169e-05, Train Accuracy: 0.9719416666666667, Validation Loss: 2.8589580257585833e-05, Validation Accuracy: 0.9731773809523809
+2024-11-11 17:19:07,400 - INFO - Epoch 13/50, Training Loss: 2.7013233633220403e-05, Train Accuracy: 0.9719799603174604, Validation Loss: 2.7141867314524477e-05, Validation Accuracy: 0.973152380952381
+2024-11-11 17:21:58,105 - INFO - Epoch 14/50, Training Loss: 2.6972301196425208e-05, Train Accuracy: 0.9720080357142857, Validation Loss: 2.6043641872127496e-05, Validation Accuracy: 0.9732234126984127
+2024-11-11 17:24:48,289 - INFO - Epoch 15/50, Training Loss: 2.6890301078258616e-05, Train Accuracy: 0.9721212301587302, Validation Loss: 2.6437679568069085e-05, Validation Accuracy: 0.9738611111111111
+2024-11-11 17:27:34,915 - INFO - Epoch 16/50, Training Loss: 2.6821207713672064e-05, Train Accuracy: 0.972175992063492, Validation Loss: 2.60419299061011e-05, Validation Accuracy: 0.9728388888888889
+2024-11-11 17:30:23,381 - INFO - Epoch 17/50, Training Loss: 2.683582272360264e-05, Train Accuracy: 0.9721840277777778, Validation Loss: 2.636669409306099e-05, Validation Accuracy: 0.9734123015873016
+2024-11-11 17:33:11,782 - INFO - Epoch 18/50, Training Loss: 2.676277958006332e-05, Train Accuracy: 0.9722433531746032, Validation Loss: 2.641044839743584e-05, Validation Accuracy: 0.9741277777777778
+2024-11-11 17:36:00,935 - INFO - Epoch 19/50, Training Loss: 2.6738032621390646e-05, Train Accuracy: 0.9722826388888889, Validation Loss: 2.6450156972980098e-05, Validation Accuracy: 0.9713206349206349
+2024-11-11 17:38:51,785 - INFO - Epoch 20/50, Training Loss: 2.6719524853471075e-05, Train Accuracy: 0.9722815476190476, Validation Loss: 2.6343094973662305e-05, Validation Accuracy: 0.9726599206349207
+2024-11-11 17:41:38,284 - INFO - Epoch 21/50, Training Loss: 2.668203230603554e-05, Train Accuracy: 0.9723271825396825, Validation Loss: 2.5933444116722853e-05, Validation Accuracy: 0.9728412698412698
+2024-11-11 17:44:27,617 - INFO - Epoch 22/50, Training Loss: 2.664275111174137e-05, Train Accuracy: 0.9723750992063492, Validation Loss: 2.6405270638993928e-05, Validation Accuracy: 0.9717785714285714
+2024-11-11 17:47:14,187 - INFO - Epoch 23/50, Training Loss: 2.66174067737579e-05, Train Accuracy: 0.9724272817460318, Validation Loss: 2.6929693966216983e-05, Validation Accuracy: 0.97035
+2024-11-11 17:50:06,170 - INFO - Epoch 24/50, Training Loss: 2.6591743956623038e-05, Train Accuracy: 0.9724093253968253, Validation Loss: 2.6111143069075685e-05, Validation Accuracy: 0.9724654761904762
+2024-11-11 17:52:54,009 - INFO - Epoch 25/50, Training Loss: 2.65932511982678e-05, Train Accuracy: 0.9724104166666667, Validation Loss: 2.650231765361414e-05, Validation Accuracy: 0.9728440476190476
+2024-11-11 17:55:44,322 - INFO - Epoch 26/50, Training Loss: 2.6550250653535984e-05, Train Accuracy: 0.972478869047619, Validation Loss: 2.5733746921954055e-05, Validation Accuracy: 0.9736337301587301
+2024-11-11 17:58:41,466 - INFO - Epoch 27/50, Training Loss: 2.6542303267873763e-05, Train Accuracy: 0.972467261904762, Validation Loss: 2.665659404463238e-05, Validation Accuracy: 0.9722329365079365
+2024-11-11 18:01:38,154 - INFO - Epoch 28/50, Training Loss: 2.6488433782720848e-05, Train Accuracy: 0.9725297619047619, Validation Loss: 2.6254431783990374e-05, Validation Accuracy: 0.9742563492063492
+2024-11-11 18:04:28,739 - INFO - Epoch 29/50, Training Loss: 2.649451057188257e-05, Train Accuracy: 0.9725146825396825, Validation Loss: 2.6958351832119718e-05, Validation Accuracy: 0.9719353174603175
+2024-11-11 18:07:23,772 - INFO - Epoch 30/50, Training Loss: 2.644214614124466e-05, Train Accuracy: 0.9725643849206349, Validation Loss: 2.568872802972143e-05, Validation Accuracy: 0.9727492063492064
+2024-11-11 18:10:17,844 - INFO - Epoch 31/50, Training Loss: 2.643255381789502e-05, Train Accuracy: 0.9725954365079366, Validation Loss: 2.5843026341559986e-05, Validation Accuracy: 0.9728984126984127
+2024-11-11 18:13:11,657 - INFO - Epoch 32/50, Training Loss: 2.64296781809424e-05, Train Accuracy: 0.972546626984127, Validation Loss: 2.7668731757957075e-05, Validation Accuracy: 0.9697623015873016
+2024-11-11 18:16:04,315 - INFO - Epoch 33/50, Training Loss: 2.6396075908061384e-05, Train Accuracy: 0.9726125992063492, Validation Loss: 2.7311239427783423e-05, Validation Accuracy: 0.9705734126984127
+2024-11-11 18:18:54,215 - INFO - Epoch 34/50, Training Loss: 2.6396381894740026e-05, Train Accuracy: 0.9726222222222223, Validation Loss: 2.5686607685028797e-05, Validation Accuracy: 0.9728555555555556
+2024-11-11 18:21:50,123 - INFO - Epoch 35/50, Training Loss: 2.6444993819579453e-05, Train Accuracy: 0.9725549603174604, Validation Loss: 2.5933951076622758e-05, Validation Accuracy: 0.9737801587301588
+2024-11-11 18:24:44,642 - INFO - Epoch 36/50, Training Loss: 2.638166593360005e-05, Train Accuracy: 0.9726469246031746, Validation Loss: 2.6095859478006052e-05, Validation Accuracy: 0.974086507936508
+2024-11-11 18:27:37,763 - INFO - Epoch 37/50, Training Loss: 2.6356685566180017e-05, Train Accuracy: 0.9726526785714286, Validation Loss: 2.6051704402613853e-05, Validation Accuracy: 0.9733547619047619
+2024-11-11 18:30:30,152 - INFO - Epoch 38/50, Training Loss: 2.6377726956418465e-05, Train Accuracy: 0.9725840277777777, Validation Loss: 2.5866838157664807e-05, Validation Accuracy: 0.9737940476190476
+2024-11-11 18:33:21,519 - INFO - Epoch 39/50, Training Loss: 2.633599078602394e-05, Train Accuracy: 0.9726609126984127, Validation Loss: 2.6805570099266276e-05, Validation Accuracy: 0.9741503968253968
+2024-11-11 18:36:11,632 - INFO - Epoch 40/50, Training Loss: 2.6368559770552175e-05, Train Accuracy: 0.972621130952381, Validation Loss: 2.6202693121093843e-05, Validation Accuracy: 0.9742650793650793
+2024-11-11 18:39:06,084 - INFO - Epoch 41/50, Training Loss: 2.6328717265647673e-05, Train Accuracy: 0.9726402777777777, Validation Loss: 2.6060934793130155e-05, Validation Accuracy: 0.9718555555555556
+2024-11-11 18:41:56,313 - INFO - Epoch 42/50, Training Loss: 2.6320347236561782e-05, Train Accuracy: 0.9726652777777778, Validation Loss: 2.6361327898496438e-05, Validation Accuracy: 0.9736849206349206
+2024-11-11 18:44:45,138 - INFO - Epoch 43/50, Training Loss: 2.6310920765593884e-05, Train Accuracy: 0.9726707341269841, Validation Loss: 2.6083585331659943e-05, Validation Accuracy: 0.9730821428571429
+2024-11-11 18:47:36,327 - INFO - Epoch 44/50, Training Loss: 2.6314857101625956e-05, Train Accuracy: 0.9726858134920635, Validation Loss: 2.6020352264112304e-05, Validation Accuracy: 0.9725626984126984
+2024-11-11 18:50:27,536 - INFO - Epoch 45/50, Training Loss: 2.630757639445143e-05, Train Accuracy: 0.9726845238095239, Validation Loss: 2.5638877151400915e-05, Validation Accuracy: 0.9731662698412699
+2024-11-11 18:53:17,287 - INFO - Epoch 46/50, Training Loss: 2.6279694635775827e-05, Train Accuracy: 0.9727013888888889, Validation Loss: 2.614606998284303e-05, Validation Accuracy: 0.9732571428571428
+2024-11-11 18:56:07,677 - INFO - Epoch 47/50, Training Loss: 2.6298004797556335e-05, Train Accuracy: 0.9726936507936508, Validation Loss: 2.6616487483907906e-05, Validation Accuracy: 0.972165873015873
+2024-11-11 18:58:58,933 - INFO - Epoch 48/50, Training Loss: 2.628265986642209e-05, Train Accuracy: 0.9726800595238095, Validation Loss: 2.627081874063209e-05, Validation Accuracy: 0.9723809523809523
+2024-11-11 19:01:47,004 - INFO - Epoch 49/50, Training Loss: 2.626355712760299e-05, Train Accuracy: 0.9727267857142857, Validation Loss: 2.6109980259253273e-05, Validation Accuracy: 0.9742785714285714
+2024-11-11 19:04:34,216 - INFO - Epoch 50/50, Training Loss: 2.6284154051718936e-05, Train Accuracy: 0.9726816468253968, Validation Loss: 2.570907967386856e-05, Validation Accuracy: 0.9721369047619047
+2024-11-11 19:04:34,216 - INFO - Total time taken to train the model: 141.31 min
+2024-11-11 19:04:34,217 - INFO - Memory usage: pmem(rss=17953751040, vms=49059688448, shared=1087897600, text=2478080, lib=0, data=23051137024, dirty=0)
+2024-11-11 19:04:34,217 - INFO - Maximum training accuracy = 0.9727268
+2024-11-11 19:04:34,217 - INFO - Maximum validation accuracy = 0.9742786
+2024-11-11 19:04:34,217 - INFO - Epoch of maximum validation accuracy = 48

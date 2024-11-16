@@ -1,4 +1,3 @@
-# from helper import *
 import pandas as pd
 import logging
 import click
@@ -63,6 +62,7 @@ def main(pred, true, logfile):
     true_list = [[] for _ in range(6)]
     for _, row in true_df.iterrows():
         true_list[row["y_true"]].append(row["id"])
+        
 
     # Prepare true and predicted label lists
     pred = []

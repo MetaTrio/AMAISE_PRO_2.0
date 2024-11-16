@@ -6,7 +6,11 @@ class FeedForwardNN(nn.Module):
         super(FeedForwardNN, self).__init__()
         
         # Define the layers
-        self.fc1 = nn.Linear(32, 1024)   # Input layer with 32 features, 1024 neurons
+        # self.fc1 = nn.Linear(32, 1024)   # Input layer with 32 features -- 3mer
+        self.fc1 = nn.Linear(42, 1024)   # Input layer with 32 features -- 2mer, 3mer
+        # self.fc1 = nn.Linear(512, 1024)   # Input layer with 512 features -- 5mer
+        # self.fc1 = nn.Linear(136, 1024)   # Input layer with 136 features -- 4mer
+        #self.fc1 = nn.Linear(680, 1024)   # Input layer with 680 features -- 3,4,5mer
         self.fc2 = nn.Linear(1024, 256)  # Hidden layer with 256 neurons
         self.fc3 = nn.Linear(256, 128)   # Hidden layer with 128 neurons
         self.fc4 = nn.Linear(128, 6)     # Output layer with 6 classes

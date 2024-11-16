@@ -16,7 +16,6 @@ import torch.nn as nn
 
 
 @click.command()
-@click.option("--unbalanced", is_flag=True, help="Specify if the dataset is unbalanced.")
 @click.option(
     "--input",
     "-i",
@@ -67,6 +66,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     inputset = input
     labelset = labels
     resultPath = output
+    
     batchSize = batch_size
     epoches = epoches
     learningRate = learning_rate
@@ -131,8 +131,8 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     train_data = list(zip(X_train, y_train))
     val_data = list(zip(X_val, y_val))
 
-    trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE, num_workers=10)
-    valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE, num_workers=10)
+    trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE)
+    valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE)
 
     logger.info("initializing the FFNN model...")
     model = nn.DataParallel(FeedForwardNN()).to(device)

@@ -123,7 +123,7 @@ def main(input_fasta_fastq, type_, input_kmers, model, output):
     # predicted_labels = [1 if p > 0.5 else 0 for p in predictions]
 
     # Prediction with labels and probabilities in one loop
-    predicted_labels_probs = [(1 if p > 0.5 else 0, float(p)) for p in predictions]
+    predicted_labels_probs = [(1 if p > 0.65 else 0, float(p)) for p in predictions]
 
     # Unpack labels and probabilities for DataFrame creation
     predicted_labels, probabilities = zip(*predicted_labels_probs)
