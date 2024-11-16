@@ -1,0 +1,30 @@
+2024-10-10 16:52:04,317 - INFO - Model path: /home/chadmi.20/model_training/model/human_train_kraken/XGBoost/modelXGBoost5mer.pth
+2024-10-10 16:52:04,317 - INFO - Input path: /home/shared_tools_data/seq2vec/human_train_kraken_kmer_5.csv
+2024-10-10 16:52:04,317 - INFO - Labels path: /mnt/disk-3/home/shared/human/train/human_train_kraken_labels.csv
+2024-10-10 16:52:04,317 - INFO - Results path: /home/chadmi.20/model_training/output/human_train_kraken/XGBoost/modelXGBoost5mer
+2024-10-10 16:52:04,825 - INFO - Device: cuda
+2024-10-10 16:52:04,825 - INFO - Loading label data...
+2024-10-10 16:52:09,303 - INFO - Loading input data...
+2024-10-10 17:02:15,851 - INFO - Parsing data...
+2024-10-10 17:02:24,073 - INFO - Total time taken to parse data: 0.14 min
+2024-10-10 17:03:24,504 - INFO - Initializing the XGBoost classifier...
+2024-10-10 17:03:24,855 - INFO - XGBoost Model Hyperparameters:
+2024-10-10 17:03:24,856 - INFO - n_estimators: 200
+2024-10-10 17:03:24,856 - INFO - min_child_weight: 1
+2024-10-10 17:03:24,856 - INFO - subsample: 1
+2024-10-10 17:03:24,856 - INFO - max_depth: 10
+2024-10-10 17:03:24,856 - INFO - learning_rate: 0.1
+2024-10-10 17:03:24,856 - INFO - gamma: 0
+2024-10-10 17:03:24,856 - INFO - reg_lambda: 1
+2024-10-10 17:03:24,856 - INFO - reg_alpha: 1
+2024-10-10 17:03:24,856 - INFO - Training the model...
+2024-10-10 17:21:08,365 - INFO - Evaluating the model...
+2024-10-10 17:21:21,889 - INFO - Training Accuracy: 0.9956
+2024-10-10 17:21:21,889 - INFO - Validation Accuracy: 0.9856
+2024-10-10 17:21:21,889 - INFO - Training F1 Score: 0.9956
+2024-10-10 17:21:21,889 - INFO - Validation F1 Score: 0.9856
+2024-10-10 17:21:21,889 - INFO - Saving the model...
+2024-10-10 17:21:21,998 - INFO - Total time taken to train the model: 19.10 min
+2024-10-10 17:21:21,998 - INFO - Memory usage: pmem(rss=57755656192, vms=88354152448, shared=222298112, text=2478080, lib=0, data=64139075584, dirty=0)
+2024-10-10 17:21:21,998 - INFO - Model saved at: /home/chadmi.20/model_training/model/human_train_kraken/XGBoost/modelXGBoost5mer.pth
+2024-10-10 17:21:22,530 - INFO - Process complete.

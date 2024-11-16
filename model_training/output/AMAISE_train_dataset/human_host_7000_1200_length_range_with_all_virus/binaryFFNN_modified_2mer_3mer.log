@@ -1,0 +1,69 @@
+2024-11-12 09:18:56,312 - INFO - Model path: /home/chadmi.20/model_training/model/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_modified_2mer_3mer.pth
+2024-11-12 09:18:56,312 - INFO - Input path: /home/shared_tools_data/seq2vec/AMAISE_human_host_7000_12000_length_range_with_all_virus_2mer_3mer.csv
+2024-11-12 09:18:56,312 - INFO - Labels path: /home/shared_tools_data/AMAISE_dataset/training_dataset/human_host_7000_12000_length_range_with_all_virus_ref/amaise_train_7k_12k_with_all_virus_true_labels_binary.csv
+2024-11-12 09:18:56,312 - INFO - Results path: /home/chadmi.20/model_training/output/AMAISE_train_dataset/human_host_7000_1200_length_range_with_all_virus/binaryFFNN_modified_2mer_3mer
+2024-11-12 09:18:56,312 - INFO - Learning rate: 0.001
+2024-11-12 09:18:56,313 - INFO - Batch size: 1024
+2024-11-12 09:18:56,313 - INFO - # Epoches: 50
+2024-11-12 09:18:56,844 - INFO - Device: cuda
+2024-11-12 09:18:56,844 - INFO - Loading label data...
+2024-11-12 09:19:08,882 - INFO - Loading input data...
+2024-11-12 09:20:40,007 - INFO - Parsing data...
+2024-11-12 09:20:40,576 - INFO - Total time taken to parse data: 0.009481541315714518 min
+2024-11-12 09:21:11,870 - INFO - Initializing the FFNN model...
+2024-11-12 09:21:14,336 - INFO - Training the network...
+2024-11-12 09:24:13,486 - INFO - Epoch 1/50, Training Loss: 4.5394400656888525e-05, Train Accuracy: 0.9567676587301587, Validation Loss: 3.521112177210549e-05, Validation Accuracy: 0.9626043650793651
+2024-11-12 09:27:09,643 - INFO - Epoch 2/50, Training Loss: 3.849054169933504e-05, Train Accuracy: 0.9623703373015873, Validation Loss: 3.2204546447518086e-05, Validation Accuracy: 0.9666436507936508
+2024-11-12 09:30:05,987 - INFO - Epoch 3/50, Training Loss: 3.691237249470774e-05, Train Accuracy: 0.9636875, Validation Loss: 3.427880540312756e-05, Validation Accuracy: 0.9627960317460318
+2024-11-12 09:33:03,455 - INFO - Epoch 4/50, Training Loss: 3.607027114346801e-05, Train Accuracy: 0.9642944444444445, Validation Loss: 3.141438052472141e-05, Validation Accuracy: 0.9666900793650793
+2024-11-12 09:36:00,128 - INFO - Epoch 5/50, Training Loss: 3.5699289081995156e-05, Train Accuracy: 0.9646112103174603, Validation Loss: 3.11800845802599e-05, Validation Accuracy: 0.9667654761904761
+2024-11-12 09:38:55,253 - INFO - Epoch 6/50, Training Loss: 3.545647600687863e-05, Train Accuracy: 0.9648943452380953, Validation Loss: 3.102205159246094e-05, Validation Accuracy: 0.9659845238095238
+2024-11-12 09:41:51,687 - INFO - Epoch 7/50, Training Loss: 3.508255992875627e-05, Train Accuracy: 0.9651902777777778, Validation Loss: 3.0485870805938565e-05, Validation Accuracy: 0.969656746031746
+2024-11-12 09:44:47,021 - INFO - Epoch 8/50, Training Loss: 3.494940807447872e-05, Train Accuracy: 0.965335615079365, Validation Loss: 3.095173477564776e-05, Validation Accuracy: 0.9680150793650794
+2024-11-12 09:47:42,763 - INFO - Epoch 9/50, Training Loss: 3.488590876952494e-05, Train Accuracy: 0.9654017857142857, Validation Loss: 3.0487734179884667e-05, Validation Accuracy: 0.9678603174603174
+2024-11-12 09:50:37,277 - INFO - Epoch 10/50, Training Loss: 3.474921528305415e-05, Train Accuracy: 0.9655536706349206, Validation Loss: 3.0650970413689577e-05, Validation Accuracy: 0.9690400793650794
+2024-11-12 09:53:32,880 - INFO - Epoch 11/50, Training Loss: 3.466836888516795e-05, Train Accuracy: 0.9656342261904762, Validation Loss: 3.0090129321500186e-05, Validation Accuracy: 0.9697976190476191
+2024-11-12 09:56:28,340 - INFO - Epoch 12/50, Training Loss: 3.467475505571606e-05, Train Accuracy: 0.9656792658730159, Validation Loss: 3.043097401673477e-05, Validation Accuracy: 0.968240873015873
+2024-11-12 09:59:24,247 - INFO - Epoch 13/50, Training Loss: 3.458401626567282e-05, Train Accuracy: 0.9657383928571428, Validation Loss: 2.9806258080024567e-05, Validation Accuracy: 0.9681376984126984
+2024-11-12 10:02:20,300 - INFO - Epoch 14/50, Training Loss: 3.448277392446817e-05, Train Accuracy: 0.9657830357142857, Validation Loss: 2.9443748066541813e-05, Validation Accuracy: 0.9702666666666667
+2024-11-12 10:05:18,391 - INFO - Epoch 15/50, Training Loss: 3.452314888921729e-05, Train Accuracy: 0.9658005952380952, Validation Loss: 3.0725609191826414e-05, Validation Accuracy: 0.9669623015873016
+2024-11-12 10:08:15,031 - INFO - Epoch 16/50, Training Loss: 3.444823849159071e-05, Train Accuracy: 0.9658970238095238, Validation Loss: 2.978838935775298e-05, Validation Accuracy: 0.971031746031746
+2024-11-12 10:11:09,884 - INFO - Epoch 17/50, Training Loss: 3.4421037107018665e-05, Train Accuracy: 0.9659710317460317, Validation Loss: 3.0377851374861267e-05, Validation Accuracy: 0.9669880952380953
+2024-11-12 10:14:05,754 - INFO - Epoch 18/50, Training Loss: 3.446122808141693e-05, Train Accuracy: 0.9659191468253968, Validation Loss: 2.9490279099563994e-05, Validation Accuracy: 0.9709861111111111
+2024-11-12 10:17:00,822 - INFO - Epoch 19/50, Training Loss: 3.4405110886741785e-05, Train Accuracy: 0.9659277777777778, Validation Loss: 3.0441874653721848e-05, Validation Accuracy: 0.9671035714285714
+2024-11-12 10:19:57,843 - INFO - Epoch 20/50, Training Loss: 3.439017181572992e-05, Train Accuracy: 0.9659289682539682, Validation Loss: 2.9714313905597442e-05, Validation Accuracy: 0.9707071428571429
+2024-11-12 10:22:53,780 - INFO - Epoch 21/50, Training Loss: 3.438588710065695e-05, Train Accuracy: 0.9659916666666667, Validation Loss: 2.9849261579857694e-05, Validation Accuracy: 0.9712222222222222
+2024-11-12 10:25:49,423 - INFO - Epoch 22/50, Training Loss: 3.439185922015606e-05, Train Accuracy: 0.9659383928571429, Validation Loss: 3.0361539857935102e-05, Validation Accuracy: 0.9713730158730158
+2024-11-12 10:28:45,232 - INFO - Epoch 23/50, Training Loss: 3.432078407781701e-05, Train Accuracy: 0.9660220238095238, Validation Loss: 2.9640401003601412e-05, Validation Accuracy: 0.9695666666666667
+2024-11-12 10:31:39,277 - INFO - Epoch 24/50, Training Loss: 3.4386020910830073e-05, Train Accuracy: 0.9660089285714286, Validation Loss: 2.9636481111603124e-05, Validation Accuracy: 0.9700150793650794
+2024-11-12 10:34:34,881 - INFO - Epoch 25/50, Training Loss: 3.435442608832899e-05, Train Accuracy: 0.9660013888888889, Validation Loss: 2.9751610098081447e-05, Validation Accuracy: 0.9707769841269841
+2024-11-12 10:37:31,389 - INFO - Epoch 26/50, Training Loss: 3.433220947590021e-05, Train Accuracy: 0.9660676587301588, Validation Loss: 2.9705072986701177e-05, Validation Accuracy: 0.9696079365079365
+2024-11-12 10:40:26,191 - INFO - Epoch 27/50, Training Loss: 3.4288879556559206e-05, Train Accuracy: 0.9661291666666667, Validation Loss: 3.0117799182762465e-05, Validation Accuracy: 0.96885
+2024-11-12 10:43:21,079 - INFO - Epoch 28/50, Training Loss: 3.4369073218725146e-05, Train Accuracy: 0.9660534722222223, Validation Loss: 3.042979092071099e-05, Validation Accuracy: 0.9671880952380952
+2024-11-12 10:46:18,551 - INFO - Epoch 29/50, Training Loss: 3.43783693970181e-05, Train Accuracy: 0.9659520833333334, Validation Loss: 2.9328396999173693e-05, Validation Accuracy: 0.9694365079365079
+2024-11-12 10:49:14,982 - INFO - Epoch 30/50, Training Loss: 3.429348670696426e-05, Train Accuracy: 0.966064384920635, Validation Loss: 2.9426613425658572e-05, Validation Accuracy: 0.9691369047619047
+2024-11-12 10:52:10,794 - INFO - Epoch 31/50, Training Loss: 3.4312768745797847e-05, Train Accuracy: 0.9660751984126984, Validation Loss: 2.9520697170676338e-05, Validation Accuracy: 0.9699277777777778
+2024-11-12 10:55:06,001 - INFO - Epoch 32/50, Training Loss: 3.4372438507021536e-05, Train Accuracy: 0.9660462301587301, Validation Loss: 2.9596509880548904e-05, Validation Accuracy: 0.9689047619047619
+2024-11-12 10:58:01,680 - INFO - Epoch 33/50, Training Loss: 3.433989265597322e-05, Train Accuracy: 0.966021626984127, Validation Loss: 3.04433556000096e-05, Validation Accuracy: 0.9690341269841269
+2024-11-12 11:00:55,582 - INFO - Epoch 34/50, Training Loss: 3.434543157890735e-05, Train Accuracy: 0.9660345238095238, Validation Loss: 2.9955183555712066e-05, Validation Accuracy: 0.9693615079365079
+2024-11-12 11:03:54,619 - INFO - Epoch 35/50, Training Loss: 3.4404188450906306e-05, Train Accuracy: 0.9660047619047619, Validation Loss: 2.9784861711105183e-05, Validation Accuracy: 0.9714928571428572
+2024-11-12 11:06:48,871 - INFO - Epoch 36/50, Training Loss: 3.436299121166239e-05, Train Accuracy: 0.9659799603174604, Validation Loss: 3.049406417542034e-05, Validation Accuracy: 0.9681257936507937
+2024-11-12 11:09:45,877 - INFO - Epoch 37/50, Training Loss: 3.440549691920982e-05, Train Accuracy: 0.9659375, Validation Loss: 2.954321105683607e-05, Validation Accuracy: 0.9693488095238095
+2024-11-12 11:12:43,648 - INFO - Epoch 38/50, Training Loss: 3.4375396533314846e-05, Train Accuracy: 0.9659823412698413, Validation Loss: 2.9496309561802753e-05, Validation Accuracy: 0.9697170634920635
+2024-11-12 11:15:41,226 - INFO - Epoch 39/50, Training Loss: 3.435187860251597e-05, Train Accuracy: 0.9660621031746032, Validation Loss: 2.9514974088127178e-05, Validation Accuracy: 0.9698420634920635
+2024-11-12 11:18:37,514 - INFO - Epoch 40/50, Training Loss: 3.434571779133486e-05, Train Accuracy: 0.9660640873015873, Validation Loss: 2.955622604737679e-05, Validation Accuracy: 0.9691083333333333
+2024-11-12 11:21:32,133 - INFO - Epoch 41/50, Training Loss: 3.433697147161833e-05, Train Accuracy: 0.9660413690476191, Validation Loss: 2.9867235245922254e-05, Validation Accuracy: 0.9691265873015873
+2024-11-12 11:24:27,764 - INFO - Epoch 42/50, Training Loss: 3.426734264976981e-05, Train Accuracy: 0.9660576388888888, Validation Loss: 3.0317606909998824e-05, Validation Accuracy: 0.967102380952381
+2024-11-12 11:27:23,938 - INFO - Epoch 43/50, Training Loss: 3.4342160706023966e-05, Train Accuracy: 0.9660618055555555, Validation Loss: 2.9416024899258027e-05, Validation Accuracy: 0.9694579365079365
+2024-11-12 11:30:18,742 - INFO - Epoch 44/50, Training Loss: 3.429789810482087e-05, Train Accuracy: 0.9660986111111111, Validation Loss: 2.9476279827825252e-05, Validation Accuracy: 0.9701992063492063
+2024-11-12 11:33:12,950 - INFO - Epoch 45/50, Training Loss: 3.439374065048815e-05, Train Accuracy: 0.966064880952381, Validation Loss: 2.9190168145393568e-05, Validation Accuracy: 0.9698202380952381
+2024-11-12 11:36:07,239 - INFO - Epoch 46/50, Training Loss: 3.4412217364158657e-05, Train Accuracy: 0.9660598214285714, Validation Loss: 2.9211535791881265e-05, Validation Accuracy: 0.9697206349206349
+2024-11-12 11:39:03,641 - INFO - Epoch 47/50, Training Loss: 3.440231447614404e-05, Train Accuracy: 0.9659425595238095, Validation Loss: 2.96640822116936e-05, Validation Accuracy: 0.970038492063492
+2024-11-12 11:42:00,316 - INFO - Epoch 48/50, Training Loss: 3.445034018987494e-05, Train Accuracy: 0.9659923611111111, Validation Loss: 2.9866500518151693e-05, Validation Accuracy: 0.9709444444444445
+2024-11-12 11:44:54,662 - INFO - Epoch 49/50, Training Loss: 3.441089328419092e-05, Train Accuracy: 0.9660001984126985, Validation Loss: 2.9670334869759186e-05, Validation Accuracy: 0.9694904761904762
+2024-11-12 11:47:49,862 - INFO - Epoch 50/50, Training Loss: 3.437572256236943e-05, Train Accuracy: 0.9661000992063492, Validation Loss: 2.974736620819876e-05, Validation Accuracy: 0.9685218253968254
+2024-11-12 11:47:49,863 - INFO - Total time taken to train the model: 146.59 min
+2024-11-12 11:47:49,863 - INFO - Memory usage: pmem(rss=16010588160, vms=47089696768, shared=1090519040, text=2478080, lib=0, data=21107253248, dirty=0)
+2024-11-12 11:47:49,863 - INFO - Maximum training accuracy = 0.9660048
+2024-11-12 11:47:49,863 - INFO - Maximum validation accuracy = 0.9714929
+2024-11-12 11:47:49,863 - INFO - Epoch of maximum validation accuracy = 34

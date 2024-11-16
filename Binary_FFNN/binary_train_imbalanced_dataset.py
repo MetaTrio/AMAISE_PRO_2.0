@@ -8,13 +8,10 @@ import logging
 import click
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from collections import Counter
 import numpy as np
 import psutil
 import torch
 import torch.nn as nn
-from sklearn.utils.class_weight import compute_class_weight
-
 
 @click.command()
 @click.option(
@@ -67,6 +64,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     inputset = input
     labelset = labels
     resultPath = output
+    
     batchSize = batch_size
     epoches = epoches
     learningRate = learning_rate
@@ -99,7 +97,6 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     logger.info(f"# Epoches: {EPOCHES}")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
     logger.info(f"Device: {device}")
 
     # Load data
@@ -108,16 +105,9 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     logger.info("Loading input data...")
     train_data_arr = pd.read_csv(inputset, header=None).to_numpy()
 
-    logger.info("parsing data...")
+    logger.info("Parsing data...")
     startTime = time.time()
 
-    # Preallocate arrays
-    num_samples = train_data_arr.shape[0]
-    num_features = train_data_arr.shape[1]
-    X = np.zeros((num_samples, num_features), dtype=np.float32)
-    y = np.zeros(num_samples, dtype=train_df["y_true"].dtype)
-
-    # Populate X and y
     X = train_data_arr.astype(np.float32)
     y = train_df["y_true"].to_numpy()
 
@@ -125,9 +115,7 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     encoding_time_diff = (endTime - startTime) / 60
     logger.info(f"Total time taken to parse data: {encoding_time_diff} min")
 
-    # split the data
-    # X_train, X_val - kmer frequency vectors of reads
-    # y_train, y_val - true labels 
+    # Split the data
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, stratify=y, random_state=0)
 
     train_data = list(zip(X_train, y_train))
@@ -136,39 +124,19 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
     trainDataLoader = DataLoader(train_data, shuffle=True, batch_size=BATCH_SIZE)
     valDataLoader = DataLoader(val_data, shuffle=True, batch_size=BATCH_SIZE)
 
-    # Count the occurrences of each class in the training and validation sets
-    train_class_counts = Counter(y_train)
-    val_class_counts = Counter(y_val)
-
-    # Print the class distribution (ratios) in both sets
-    print("Class distribution in training set:")
-    for class_label, count in train_class_counts.items():
-        print(f"Class {class_label}: {count} samples")
-
-    print("\nClass distribution in validation set:")
-    for class_label, count in val_class_counts.items():
-        print(f"Class {class_label}: {count} samples")
-
-    class_weights = compute_class_weight(class_weight='balanced', classes=np.unique(y_train), y=y_train)
-    # weight_class_i = total_samples / (number_of_classes * number_of_samples_class_i)
-    class_weights_tensor = torch.tensor(class_weights, dtype=torch.float32).to(device)
-    print("Class weights for training ", class_weights_tensor)
-   
-    # model setup
-    logger.info("initializing the FFNN model...")
+    logger.info("Initializing the FFNN model...")
     model = nn.DataParallel(FeedForwardNN()).to(device)
 
-    
-    # opt = Adam(model.parameters(), lr=INIT_LR, weight_decay=1e-5)
-    opt = Adam(model.parameters(), lr=INIT_LR)
-    # binary cross entropy loss function
-    lossFn = nn.BCELoss(weight=class_weights_tensor)
+    # Calculate pos_weight for BCEWithLogitsLoss
+    num_pos = np.sum(y_train == 1)
+    num_neg = np.sum(y_train == 0)
+    pos_weight = torch.tensor(num_neg / num_pos).to(device)
 
-    # Use BCEWithLogitsLoss for binary classification
-    # lossFn = nn.BCEWithLogitsLoss(weight=class_weights_tensor)
+    # Use BCEWithLogitsLoss for binary classification with pos_weight
+    opt = Adam(model.parameters(), lr=INIT_LR, weight_decay=1e-5)
+    lossFn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 
-
-    logger.info("training the network...")
+    logger.info("Training the network...")
 
     startTime = time.time()
     max_val_acc = 0
@@ -185,26 +153,19 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
         for step, (x, y) in enumerate(trainDataLoader):
             (x, y) = (x.to(device), y.to(device))
 
-            print(f"Initial label shape: {y.shape}")
-
-            # Reshape labels for BCELoss to [batch_size, 1]
+            # Reshape labels for BCEWithLogitsLoss to [batch_size, 1]
             y = y.view(-1, 1).float()
-            print(x.shape, y.shape)
-    
 
             pred = model(x)
             loss = lossFn(pred, y)
             total_loss += loss.item()
 
-            # zero out the gradients,
             opt.zero_grad()
             loss.backward()
             opt.step()
 
             # Calculate correct predictions
-            # output of BCEWithLogitsLoss is not passed through a sigmoid, apply a sigmoid
-            # pred = torch.sigmoid(pred)  # Apply sigmoid for predictions
-            predicted_labels = (pred > 0.5).float()
+            predicted_labels = (torch.sigmoid(pred) > 0.65).float()
             correct_train_predictions += (predicted_labels == y).sum().item()
 
         model.eval()
@@ -215,15 +176,13 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
         with torch.no_grad():
             for step, (val_x, val_y) in enumerate(valDataLoader):
                 val_x, val_y = val_x.to(device), val_y.to(device)
-
                 val_y = val_y.view(-1, 1).float()
 
                 val_pred = model(val_x)
                 val_loss = lossFn(val_pred, val_y)
                 total_val_loss += val_loss.item()
 
-                val_pred = torch.sigmoid(val_pred)  # Apply sigmoid for validation predictions
-                predicted_val_labels = (val_pred > 0.5).float()
+                predicted_val_labels = (torch.sigmoid(val_pred) > 0.65).float()
                 correct_val_predictions += (predicted_val_labels == val_y).sum().item()
 
         train_accuracy = correct_train_predictions / len(trainDataLoader.dataset)
@@ -246,17 +205,26 @@ def main(input, labels, model, output, batch_size, epoches, learning_rate):
             epoch_of_max_val_acc = e
             torch.save(model.state_dict(), newModelPath)
 
-    
-
     endTime = time.time()
     memory = psutil.Process().memory_info()
 
     logger.info(
-        "total time taken to train the model: {:.2f} min".format(
+        "Total time taken to train the model: {:.2f} min".format(
             (endTime - startTime) / 60
         )
     )
-    logger.info(f"Memory usage: {memory}")
+    
+    # Convert memory values from bytes to GB
+    rss_gb = memory.rss / (1024 ** 3)
+    vms_gb = memory.vms / (1024 ** 3)
+    shared_gb = memory.shared / (1024 ** 3)
+    text_gb = memory.text / (1024 ** 3)
+    data_gb = memory.data / (1024 ** 3)
+
+    # Log the values in GB
+    logger.info(f"Memory usage: rss={rss_gb:.2f} GB, vms={vms_gb:.2f} GB, shared={shared_gb:.2f} GB, text={text_gb:.2f} GB, data={data_gb:.2f} GB")
+
+
     logger.info(f"Maximum training accuracy = {train_acc_at_max_val_acc:.7f}")
     logger.info(f"Maximum validation accuracy = {max_val_acc:.7f}")
     logger.info(f"Epoch of maximum validation accuracy = {epoch_of_max_val_acc}")

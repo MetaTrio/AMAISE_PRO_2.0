@@ -96,5 +96,3 @@ def main(pred, true, logfile):
 
 if __name__ == "__main__":
     main()
-
-

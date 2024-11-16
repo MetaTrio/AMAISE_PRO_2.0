@@ -69,7 +69,8 @@ def main(pred, true, logfile):
     #     true_list[row["label"]].append(row["id"])
     for _, row in true_df.iterrows():
         # true_list[row["label"]].append(row["id"])
-        true_list[row["y_true"]].append(row["id"])
+        true_list[int(row["y_true"])].append(row["id"])
+        
 
     pred = []
     true = []

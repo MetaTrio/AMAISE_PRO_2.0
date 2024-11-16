@@ -1,0 +1,30 @@
+2024-10-11 03:16:27,731 - INFO - Model path: /home/chadmi.20/model_training/model/algae_train_kraken/XGBoost/modelXGBoost5mer.pth
+2024-10-11 03:16:27,731 - INFO - Input path: /home/shared_tools_data/seq2vec/algae_train_kraken_5mer.csv
+2024-10-11 03:16:27,731 - INFO - Labels path: /mnt/disk-3/home/shared/different_hosts_20_batch/algae/train/algae_train_kraken_labels.csv
+2024-10-11 03:16:27,731 - INFO - Results path: /home/chadmi.20/model_training/output/algae_train_kraken/XGBoost/modelXGBoost5mer
+2024-10-11 03:16:28,230 - INFO - Device: cuda
+2024-10-11 03:16:28,231 - INFO - Loading label data...
+2024-10-11 03:16:32,530 - INFO - Loading input data...
+2024-10-11 03:25:48,542 - INFO - Parsing data...
+2024-10-11 03:25:54,458 - INFO - Total time taken to parse data: 0.10 min
+2024-10-11 03:26:52,305 - INFO - Initializing the XGBoost classifier...
+2024-10-11 03:26:52,656 - INFO - XGBoost Model Hyperparameters:
+2024-10-11 03:26:52,656 - INFO - n_estimators: 200
+2024-10-11 03:26:52,657 - INFO - min_child_weight: 1
+2024-10-11 03:26:52,657 - INFO - subsample: 1
+2024-10-11 03:26:52,657 - INFO - max_depth: 10
+2024-10-11 03:26:52,657 - INFO - learning_rate: 0.1
+2024-10-11 03:26:52,657 - INFO - gamma: 0
+2024-10-11 03:26:52,657 - INFO - reg_lambda: 1
+2024-10-11 03:26:52,657 - INFO - reg_alpha: 1
+2024-10-11 03:26:52,657 - INFO - Training the model...
+2024-10-11 03:47:51,032 - INFO - Evaluating the model...
+2024-10-11 03:48:02,064 - INFO - Training Accuracy: 0.9960
+2024-10-11 03:48:02,064 - INFO - Validation Accuracy: 0.9851
+2024-10-11 03:48:02,065 - INFO - Training F1 Score: 0.9960
+2024-10-11 03:48:02,065 - INFO - Validation F1 Score: 0.9851
+2024-10-11 03:48:02,065 - INFO - Saving the model...
+2024-10-11 03:48:02,179 - INFO - Total time taken to train the model: 22.23 min
+2024-10-11 03:48:02,180 - INFO - Memory usage: pmem(rss=57817833472, vms=88357351424, shared=224395264, text=2478080, lib=0, data=64147595264, dirty=0)
+2024-10-11 03:48:02,180 - INFO - Model saved at: /home/chadmi.20/model_training/model/algae_train_kraken/XGBoost/modelXGBoost5mer.pth
+2024-10-11 03:48:02,718 - INFO - Process complete.

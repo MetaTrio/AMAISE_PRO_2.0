@@ -1,0 +1,8 @@
+2024-09-27 07:23:00,104 - INFO - Model path: /home/chadmi.20/model_training/model/human_train_kraken/modelAMAISEPRO_6mer.pth
+2024-09-27 07:23:00,105 - INFO - Input path: /home/shared_tools_data/seq2vec/human_train_kraken_kmer_6.csv
+2024-09-27 07:23:00,105 - INFO - Labels path: /mnt/disk-3/home/shared/human/train/human_train_kraken_labels.csv
+2024-09-27 07:23:00,105 - INFO - Results path: /home/chadmi.20/model_training/output/human_train_kraken/modelAMAISEPRO_6mer
+2024-09-27 07:23:00,105 - INFO - Learning rate: 0.001
+2024-09-27 07:23:00,105 - INFO - Batch size: 1024
+2024-09-27 07:23:00,105 - INFO - # Epoches: 50
+2024-09-27 07:23:00,259 - INFO - Device: cuda
