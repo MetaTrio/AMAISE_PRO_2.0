@@ -3,6 +3,7 @@ import logging
 import click
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix
+import os 
 
 @click.command()
 @click.option(
@@ -63,20 +64,20 @@ def main(pred, true, logfile):
         true_list[row["y_true"]].append(row["id"])
    
     # Prepare true and predicted label lists
-    pred = []
-    true = []
+    predicted_labels = []
+    true_labels = []
     for clz in range(2):
         for ele in true_list[clz]:
-            pred.append(pred_dict[ele])
-        true.extend(np.full(len(true_list[clz]), clz))
+            predicted_labels.append(pred_dict[ele])
+        true_labels.extend(np.full(len(true_list[clz]), clz))
     
     # Generate classification report
     logger.info(
-        f'\n {classification_report(true, pred, target_names=["Host", "Microbial"])}'
+        f'\n {classification_report(true_labels, predicted_labels, target_names=["Host", "Microbial"])}'
     )
 
     # Compute and log confusion matrix
-    cm = confusion_matrix(true, pred)
+    cm = confusion_matrix(true_labels, predicted_labels)
     cm_df = pd.DataFrame(
         cm,
         index=["Host", "Microbial"],
@@ -92,6 +93,15 @@ def main(pred, true, logfile):
         columns=["Host", "Microbial"],
     )
     logger.info(f"\nConfusion Matrix (Percentages):\n{cm_df_normalized}")
+
+    # merge true and predicted labels
+    merged_df = pd.merge(true_df,pred_df, on='id')
+    
+
+    # Save concatenated DataFrame to the same path as the predicted file
+    output_path = os.path.join(os.path.dirname(pred), "trueAndPredictedLabels.csv")
+    merged_df.to_csv(output_path, index=False)
+    logger.info(f"Concatenated CSV saved to {output_path}")
 
 
 if __name__ == "__main__":
