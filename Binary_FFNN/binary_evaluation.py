@@ -103,6 +103,16 @@ def main(pred, true, logfile):
     merged_df.to_csv(output_path, index=False)
     logger.info(f"Concatenated CSV saved to {output_path}")
 
+    # Calculate sensitivity and specificity
+    # Confusion matrix: [TN, FP], [FN, TP]
+    TN, FP, FN, TP = cm.ravel()
+
+    sensitivity = TP / (TP + FN) if (TP + FN) > 0 else 0
+    specificity = TN / (TN + FP) if (TN + FP) > 0 else 0
+
+    # Save sensitivity and specificity to logs
+    logger.info(f"Sensitivity: {sensitivity:.4f}")
+    logger.info(f"Specificity: {specificity:.4f}")
 
 if __name__ == "__main__":
     main()
