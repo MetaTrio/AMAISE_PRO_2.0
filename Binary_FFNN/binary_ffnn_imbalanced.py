@@ -25,3 +25,5 @@ class FeedForwardNN(nn.Module):
         x = self.dropout(self.relu(self.fc3(x)))  # 2nd hidden to 3rd hidden layer
         x = self.dropout(self.relu(self.fc4(x)))  # 3rd hidden to output layer
         x = self.fc5(x)  # Output layer without sigmoid
+
+        return x
