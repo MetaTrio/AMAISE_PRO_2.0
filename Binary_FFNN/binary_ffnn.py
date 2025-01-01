@@ -33,7 +33,7 @@ class FeedForwardNN(nn.Module):
     #     # x = self.dropout(self.relu(self.fc2(x)))  # 1st hidden to 2nd hidden layer
     #     # x = self.dropout(self.relu(self.fc3(x)))  # 2nd hidden to 3rd hidden layer
     #     # x = self.dropout(self.relu(self.fc4(x)))  # 3rd hidden to output layer
-    #     # x = self.fc5(x)  # Output layer without sigmoid
+    #     # x = self.fc5(x)  # Output layer without sigmoid   
 
 
     # for human_train_kraken_and_nano_len_7k_12k
@@ -42,7 +42,7 @@ class FeedForwardNN(nn.Module):
         super(FeedForwardNN, self).__init__()
         
         # Define the layers
-        self.fc1 = nn.Linear(32, 1024)   # Input layer with 32 features -- 3mer
+        self.fc1 = nn.Linear(42, 1024)   # Input layer with 32 features -- 3mer
         self.fc2 = nn.Linear(1024, 256)  # Hidden layer with 256 neurons
         self.fc3 = nn.Linear(256, 128)   # Hidden layer with 128 neurons
         self.fc4 = nn.Linear(128, 1)     # Output layer with 1 neuron for binary classification
