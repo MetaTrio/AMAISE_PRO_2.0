@@ -1,4 +1,4 @@
-# AMAISE_Pro
+# AMAISE_Pro_2.0
 
 AMAISE_Pro is a novel, multi-class classification tool with the host depletion. Given a set of reads, for each sequence, AMAISE outputs a classification label determining what is the superkingdom it belongs to or does it belongs to host (0 for host, 1 for bacteria, 2 for virus, 3 for fungi, 4 for archaea, and 5 for protozoa). AMAISE then stores the sequences of each type in 6 files for downstream analysis.
 
@@ -8,10 +8,10 @@ ________________________________________________________________________________
 First, download this Github Repository,
 
 ```sh
-git clone https://github.com/CSE-BIONOVA/AMAISE_PRO.git
+git clone https://github.com/MetaTrio/AMAISE_PRO_2.0.git
 ```
 
-AMAISE requires a computational environment with a Linux-based machine/Ubuntu.
+AMAISE_Pro_2.0 requires a computational environment with a Linux-based machine/Ubuntu.
 
 Required packages and versions are listed in "requirements.txt". You can install the packages in requirements.txt using:
 
@@ -19,9 +19,9 @@ Required packages and versions are listed in "requirements.txt". You can install
 pip install -r requirements.txt
 ```
 ____________________________________________________________________________________________
-## Usage Notes for AMAISE_Pro
+## Usage Notes for AMAISE_Pro_2.0
 
-### For classifying sequences using AMAISE_Pro
+### For classifying sequences using AMAISE_Pro_2.0
 
 python3 mclass_classification.py -i **pathToInputFile** -t **typeOfInputFile** -k **pathToEncodedInputFile** -m **pathToUsedModel(optional)** -o **pathToOutputFolder**
 
